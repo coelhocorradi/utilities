@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Built-By: Gustavo
+Build-Jdk: 18.0.1
+Implementation-Title: utilities
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: br.com.grupofigueiredo
+Implementation-Vendor: Pivotal Software, Inc.
+Created-By: Maven Integration for Eclipse
+

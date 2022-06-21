@@ -1,0 +1,30 @@
+[
+	{
+		"hostName": "AS03",
+		"hostAddress": "http://10.0.0.102"
+	},		
+	{
+		"hostName": "FS01",
+		"hostAddress": "http://10.0.0.110"
+	},
+	{
+		"hostName": "TOTVS",
+		"hostAddress": "http://10.0.0.112"
+	},
+	{
+		"hostName": "AS04",
+		"hostAddress": "http://10.0.0.120"
+	},
+	{
+		"hostName": "SC-HOMOLOG",
+		"hostAddress": "http://10.0.0.126"
+	},
+	{
+		"hostName": "SC-PROP",
+		"hostAddress": "http://10.0.0.128"
+	},
+	{
+		"hostName": "AS13",
+		"hostAddress": "http://10.0.0.130"
+	}
+]
