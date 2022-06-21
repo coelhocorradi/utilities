@@ -12,7 +12,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ScheduledFuture;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.context.annotation.Bean;
@@ -46,8 +47,8 @@ import br.com.utilities.utils.StringUtils;
 @Configuration
 @EnableScheduling
 public abstract class CustomSchedulerService implements SchedulingConfigurer {
-
-	protected static Logger log = Logger.getLogger(CustomSchedulerService.class);
+	
+	protected static Logger log = LogManager.getLogger(CustomSchedulerService.class);
 
 	private static CustomSchedulerService self;
 
@@ -153,7 +154,7 @@ public abstract class CustomSchedulerService implements SchedulingConfigurer {
 			task.setTaskManager(taskManager);
 			task.setId(rs.getId());
 			autowireCapableBeanFactory.autowireBean(task);
-			log.info("reagendando " + rs.getCaminho() + ":" + rs.getId() + " cron expression " + rs.getExpressaoCron());
+			log.info("reagendando " + rs.getCaminho() + ":" + rs.getId() + " cron expression " + rs.getExpressaoCron());			
 			result = rescheduleTaskToScheduler(rs.getId(), task, cron);
 		} catch (InstantiationException | IllegalAccessException | NoSuchMethodException | SecurityException
 				| IllegalArgumentException | InvocationTargetException e) {
@@ -225,7 +226,7 @@ public abstract class CustomSchedulerService implements SchedulingConfigurer {
 					map.put("id", id);
 				}
 			});
-			String json = HttpUtils.httpGetAndReceive(url, MediaType.APPLICATION_JSON_UTF8_VALUE);
+			String json = HttpUtils.httpGetAndReceive(url, MediaType.APPLICATION_JSON_VALUE);
 
 			Type type = new TypeToken<List<GrRegistroDeServico>>() {
 			}.getType();
@@ -270,11 +271,12 @@ public abstract class CustomSchedulerService implements SchedulingConfigurer {
 			jo.addProperty("sec_users_id", "sistema.jornada");
 			jo.addProperty("id", id);
 			jo.addProperty("origem", origem);
-			String json = HttpUtils.httpPostAndReceive(url, jo.toString(), MediaType.APPLICATION_JSON_UTF8_VALUE);
+			String json = HttpUtils.httpPostAndReceive(url, jo.toString(), MediaType.APPLICATION_JSON_VALUE);
 
 			JsonReader jr = new JsonReader(new StringReader(json));
 			jr.setLenient(true);
-			jo = new JsonParser().parse(jr).getAsJsonObject();
+			//jo = new JsonParser().parse(jr).getAsJsonObject();
+			jo = JsonParser.parseReader(jr).getAsJsonObject();
 			if (jo.has("erro")) {
 				String erro = jo.get("erro").getAsString();
 				throw new Exception(erro);
@@ -307,11 +309,12 @@ public abstract class CustomSchedulerService implements SchedulingConfigurer {
 			jo.addProperty("id", id);
 			jo.addProperty("origem", origem);
 			jo.addProperty("expressao_cron", expressao_cron);
-			String json = HttpUtils.httpPostAndReceive(url, jo.toString(), MediaType.APPLICATION_JSON_UTF8_VALUE);
+			String json = HttpUtils.httpPostAndReceive(url, jo.toString(), MediaType.APPLICATION_JSON_VALUE);
 
 			JsonReader jr = new JsonReader(new StringReader(json));
 			jr.setLenient(true);
-			jo = new JsonParser().parse(jr).getAsJsonObject();
+			//jo = new JsonParser().parse(jr).getAsJsonObject();
+			jo = JsonParser.parseReader(jr).getAsJsonObject();
 			if (jo.has("erro")) {
 				String erro = jo.get("erro").getAsString();
 				throw new Exception(erro);
@@ -348,11 +351,12 @@ public abstract class CustomSchedulerService implements SchedulingConfigurer {
 			jo.addProperty("status", status);
 			informacao = !StringUtils.isNullOrEmpty(informacao) ? informacao : "";
 			jo.addProperty("informacao", informacao);
-			String json = HttpUtils.httpPostAndReceive(url, jo.toString(), MediaType.APPLICATION_JSON_UTF8_VALUE);
+			String json = HttpUtils.httpPostAndReceive(url, jo.toString(), MediaType.APPLICATION_JSON_VALUE);
 
 			JsonReader jr = new JsonReader(new StringReader(json));
 			jr.setLenient(true);
-			jo = new JsonParser().parse(jr).getAsJsonObject();
+			//jo = new JsonParser().parse(jr).getAsJsonObject();
+			jo = JsonParser.parseReader(jr).getAsJsonObject();
 			if (jo.has("erro")) {
 				String erro = jo.get("erro").getAsString();
 				throw new Exception(erro);
@@ -384,11 +388,12 @@ public abstract class CustomSchedulerService implements SchedulingConfigurer {
 			jo.addProperty("id", id);
 			jo.addProperty("origem", origem);
 			jo.addProperty("caminho", caminho);
-			String json = HttpUtils.httpPostAndReceive(url, jo.toString(), MediaType.APPLICATION_JSON_UTF8_VALUE);
+			String json = HttpUtils.httpPostAndReceive(url, jo.toString(), MediaType.APPLICATION_JSON_VALUE);
 
 			JsonReader jr = new JsonReader(new StringReader(json));
 			jr.setLenient(true);
-			jo = new JsonParser().parse(jr).getAsJsonObject();
+			//jo = new JsonParser().parse(jr).getAsJsonObject();
+			jo = JsonParser.parseReader(jr).getAsJsonObject();
 			if (jo.has("erro")) {
 				String erro = jo.get("erro").getAsString();
 				throw new Exception(erro);

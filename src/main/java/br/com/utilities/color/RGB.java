@@ -1,6 +1,6 @@
 package br.com.utilities.color;
 
-public class RGB extends ColorBuilder implements IColorBuilder, ICMYK, IHSB {
+public class RGB extends ColorBuilder {//implements IColorBuilder, ICMYK, IHSB {
 
 	public RGB() {
 	}

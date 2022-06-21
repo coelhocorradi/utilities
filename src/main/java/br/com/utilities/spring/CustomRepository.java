@@ -28,6 +28,8 @@ public class CustomRepository<E, I extends Number> {
 	public List<E> findByCriteria(Map<String, Object> maps) {
 		return repository.findAll(new Specification<E>() {
 
+			private static final long serialVersionUID = 2934722725165068524L;
+
 			@Override
 			public Predicate toPredicate(Root<E> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
 				List<Predicate> predicates = new ArrayList<Predicate>();
@@ -43,6 +45,9 @@ public class CustomRepository<E, I extends Number> {
 
 	public List<E> findByCriteriaComplex(Map<String, Map<String, Object>> maps) {
 		return repository.findAll(new Specification<E>() {
+			
+			private static final long serialVersionUID = -6336582393575025010L;
+
 			@Override
 			public Predicate toPredicate(Root<E> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
 				List<Predicate> predicates = new ArrayList<>();
@@ -81,19 +86,19 @@ public class CustomRepository<E, I extends Number> {
 								case "<":
 								case "lesser":
 								case "ls": {
-
+									//TODO
 								}
 									break;
 								case ">=":
 								case "greater or equal":
 								case "ge": {
-
+									//TODO
 								}
 									break;
 								case "<=":
 								case "lesser or equal":
 								case "le": {
-
+									//TODO
 								}
 									break;
 								default:

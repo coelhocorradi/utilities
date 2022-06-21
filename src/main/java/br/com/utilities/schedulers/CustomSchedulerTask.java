@@ -4,7 +4,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ScheduledFuture;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import br.com.utilities.datetime.DateFormater;
@@ -18,7 +19,7 @@ public abstract class CustomSchedulerTask extends TaskBase<CustomSchedulerTask> 
 	 */
 	private static final long serialVersionUID = -3833546427763015715L;
 
-	protected static Logger log = Logger.getLogger(CustomSchedulerTask.class);
+	protected static Logger log = LogManager.getLogger(CustomSchedulerTask.class);
 
 	protected static boolean ENABLE_CRONJOBS = true;
 

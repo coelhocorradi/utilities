@@ -3,9 +3,10 @@ package br.com.utilities.tasks;
 import java.io.Serializable;
 import java.lang.reflect.Type;
 
-import org.apache.log4j.Logger;
-
 import com.google.gson.reflect.TypeToken;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import br.com.utilities.datetime.DateUtils;
 import br.com.utilities.enums.EPriority;
@@ -40,7 +41,7 @@ public abstract class TaskBase<T> implements ITaskManager, Runnable, Comparable<
 		this.priority = EPriority.NORMAL;
 		Type type = new TypeToken<T>() {
 		}.getType();
-		log = Logger.getLogger(type.getClass());
+		log = LogManager.getLogger(type.getClass());
 		this.taskManager = null;
 	}
 
@@ -48,7 +49,7 @@ public abstract class TaskBase<T> implements ITaskManager, Runnable, Comparable<
 		this.priority = EPriority.NORMAL;
 		Type type = new TypeToken<T>() {
 		}.getType();
-		log = Logger.getLogger(type.getClass());
+		log = LogManager.getLogger(type.getClass());
 		this.taskManager = null;
 		this.nome = nome;
 		this.info = info;
@@ -91,7 +92,7 @@ public abstract class TaskBase<T> implements ITaskManager, Runnable, Comparable<
 	}
 
 	public void setLoggerBy(Class<?> clazz) {
-		log = Logger.getLogger(clazz);
+		log = LogManager.getLogger(clazz);
 	}
 
 	public void onInicialize() throws Exception {

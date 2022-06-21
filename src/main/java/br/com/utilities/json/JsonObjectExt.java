@@ -14,8 +14,13 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class JsonObjectExt {
 
+	private static Logger logger = LogManager.getLogger(JsonObjectExt.class); 
+	
 	protected JsonObject jsono;
 
 	/**
@@ -39,8 +44,8 @@ public class JsonObjectExt {
 	 * @param jsonString
 	 */
 	public void setJson(String jsonString) {
-		// JsonElement jsone = JsonParser.parseString(jsonString);
-		JsonElement jsone = new JsonParser().parse(jsonString);
+		JsonElement jsone = JsonParser.parseString(jsonString);
+		//JsonElement jsone = new JsonParser().parse(jsonString);
 		String p = null, m = null;
 		if (jsone == null) {
 			p = "null type";
@@ -61,7 +66,7 @@ public class JsonObjectExt {
 			p = "unknow type";
 			m = jsone.toString();
 		}
-		System.out.println(p + " : " + m);
+		logger.debug(p + " : " + m);
 		JsonObject jsono = jsone.getAsJsonObject();
 		clone(jsono);
 	}
@@ -88,20 +93,20 @@ public class JsonObjectExt {
 				throw new Exception("the target jsono object can be null!");
 			}
 			Iterator<Entry<String, JsonElement>> it = jsono.entrySet().iterator();
-			System.out.println(it != null ? "it is not null" : "it is null");
+			logger.debug(it != null ? "it is not null" : "it is null");
 			while (it.hasNext()) {
 				Entry<String, JsonElement> entry = it.next();
-				System.out.println(entry != null ? "entry is not null" : "entry is null");
+				logger.debug(entry != null ? "entry is not null" : "entry is null");
 				String key = entry.getKey();
-				System.out.println(key != null ? "key is " + key : "key is null");
-				System.out.println(this.jsono.has(key) ? "key " + key + " exists into jsono target"
+				logger.debug(key != null ? "key is " + key : "key is null");
+				logger.debug(this.jsono.has(key) ? "key " + key + " exists into jsono target"
 						: "key " + key + " exists into jsono target");
 				JsonElement my = this.jsono.get(key), newValue = entry.getValue();
-				System.out.println(my != null ? "my is not null" : "my is null");
+				logger.debug(my != null ? "my is not null" : "my is null");
 				if (my == null) {
 					my = JsonNull.INSTANCE;
 				}
-				System.out.println(newValue != null ? "newValue is not null" : "newValue is null");
+				logger.debug(newValue != null ? "newValue is not null" : "newValue is null");
 				boolean addValue = true;
 				if (newValue == null) {
 					e = new Exception("the entry value is null!");
@@ -121,19 +126,19 @@ public class JsonObjectExt {
 				}
 				if (addValue) {
 					this.jsono.add(key, newValue);
-					System.out.println("add into " + key + " value " + newValue.toString());
+					logger.debug("add into " + key + " value " + newValue.toString());
 				} else {
 					this.jsono.add(key, JsonNull.INSTANCE);
-					System.out.println("add into " + key + " value null");
+					logger.debug("add into " + key + " value null");
 				}
 				try {
 					if (e != null) {
-						System.out.println(e.getMessage());
+						logger.debug(e.getMessage());
 					}
 				} catch (Exception ex) {
-					System.out.println("!!!antes!!!");
+					logger.debug("!!!antes!!!");
 					ex.printStackTrace();
-					System.out.println("!!!depois!!!");
+					logger.debug("!!!depois!!!");
 				}
 				e = null;
 			}
@@ -579,9 +584,9 @@ public class JsonObjectExt {
 					jsono.add(key, ((JsonObjectExt) value).getJsono());
 				} catch (Exception e) {
 					e.printStackTrace();
-					// JsonElement je = JsonParser.parseString(((JsonObjectExt)
-					// value).toJsonString());
-					JsonElement je = new JsonParser().parse(((JsonObjectExt) value).toJsonString());
+					JsonElement je = JsonParser.parseString(((JsonObjectExt)
+					value).toJsonString());
+					//JsonElement je = new JsonParser().parse(((JsonObjectExt) value).toJsonString());
 					jsono.add(key, je);
 				}
 			} else {

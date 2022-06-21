@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-import org.springframework.data.repository.CrudRepository;
+//import org.springframework.data.repository.CrudRepository;
 
 /**
  * 
@@ -14,6 +14,6 @@ import org.springframework.data.repository.CrudRepository;
  * @param <I> must be Number and Serializable
  */
 public interface ICustomRepository<E, I extends Serializable>
-		extends JpaRepository<E, I>, CrudRepository<E, I>, JpaSpecificationExecutor<E> {
+		extends JpaRepository<E, I>, JpaSpecificationExecutor<E> { //CrudRepository<E, I>
 
 }

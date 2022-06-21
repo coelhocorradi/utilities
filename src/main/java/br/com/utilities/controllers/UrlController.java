@@ -8,11 +8,12 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.apache.commons.io.Charsets;
+//import org.apache.commons.io.Charsets;
 import org.springframework.http.MediaType;
 
 import com.google.gson.JsonArray;
@@ -102,7 +103,7 @@ public class UrlController {
 			conn.setInstanceFollowRedirects(false);
 			conn.setRequestMethod("POST");
 			conn.setRequestProperty("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE);
-			conn.setRequestProperty("charset", Charsets.UTF_8.name());
+			conn.setRequestProperty("charset", StandardCharsets.UTF_8.name());// Charsets.UTF_8.name());
 			conn.setRequestProperty("Content-Length", Integer.toString(postData.length));
 			conn.setUseCaches(false);
 			if (origin != null) {
@@ -163,7 +164,7 @@ public class UrlController {
 			conn.setInstanceFollowRedirects(false);
 			conn.setRequestMethod("POST");
 			conn.setRequestProperty("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE);
-			conn.setRequestProperty("charset", Charsets.UTF_8.name());
+			conn.setRequestProperty("charset", StandardCharsets.UTF_8.name());// Charsets.UTF_8.name());
 			conn.setRequestProperty("Content-Length", Integer.toString(postData.length));
 			conn.setUseCaches(false);
 			if (origin != null) {
@@ -297,8 +298,8 @@ public class UrlController {
 	 */
 	public JsonObject getJsonObject(String url, String origin) {
 		String jsonString = receiveFrom(url, origin);
-		JsonObject jsono = new JsonParser().parse(jsonString).getAsJsonObject();
-		// JsonParser.parseString(jsonString).getAsJsonObject();
+		//JsonObject jsono = new JsonParser().parse(jsonString).getAsJsonObject();
+		JsonObject jsono = JsonParser.parseString(jsonString).getAsJsonObject();
 		return jsono;
 	}
 
@@ -310,8 +311,8 @@ public class UrlController {
 	 */
 	public JsonArray getJsonArray(String url, String origin) {
 		String jsonString = receiveFrom(url, origin);
-		JsonArray jsona = new JsonParser().parse(jsonString).getAsJsonArray();
-		// JsonParser.parseString(jsonString).getAsJsonArray();
+		//JsonArray jsona = new JsonParser().parse(jsonString).getAsJsonArray();
+		JsonArray jsona = JsonParser.parseString(jsonString).getAsJsonArray();
 		return jsona;
 	}
 }

@@ -59,10 +59,10 @@ public abstract class GsonAdapter {
 	}
 
 	public static JsonElement parser(Gson gson, String str) throws Exception {
-		JsonReader reader = new JsonReader(new StringReader(str));
-		JsonParser parser = new JsonParser();
-		return parser.parse(reader);
-		// JsonReader reader = gson.newJsonReader(new StringReader(str));
-		// return JsonParser.parseReader(reader);
+		//JsonReader reader = new JsonReader(new StringReader(str));
+		//JsonParser parser = new JsonParser();
+		//return parser.parse(reader);
+		JsonReader reader = gson.newJsonReader(new StringReader(str));
+		return JsonParser.parseReader(reader);
 	}
 }
